@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIDE KICK Program Audit</title>
+<meta name="description" content="Coverage, engagement and staffing audit of the 9-language SIDE KICK moderation programme. 3,197 reactions, 25 members, 19 Jun to 24 Aug 2026.">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="SIDE KICK Program Audit">
+<meta property="og:description" content="Where moderation coverage actually sits, who is carrying it, and which seats are being paid for but not filled.">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2353FC18'/%3E%3Cpath d='M50 20 74 30v22c0 18-12 32-24 38-12-6-24-20-24-38V30z' fill='none' stroke='%23000' stroke-width='7' stroke-linejoin='round'/%3E%3Cpath d='M39 51l8 8 16-18' fill='none' stroke='%23000' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ---------- reset (standalone) ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+img,svg{max-width:100%}
+button,input,select{font-family:inherit}
+table{border-collapse:collapse}
+
+/* ---------- print ---------- */
+@media print{
+  body{font-size:11px}
+  .wrap{padding:0;max-width:none}
+  .tabs,.clr,.thf,.tbar{display:none!important}
+  section{margin-top:26px;break-inside:avoid}
+  .tw,.hm,.call,.card,.kpi{break-inside:avoid;border-color:#ccc}
+  .thb{color:#000!important;cursor:default}
+  .thb .ic{display:none}
+  a{text-decoration:none;color:#000}
+}
+</style>
+</head>
+<body>
+<style>
+:root{
+  --kick:#53FC18;
+  --kick-tint:#EEFEE6;
+  --kick-tint-2:#DCFDC9;
+  --kick-ink:#2C7A00;
+
+  --bg:#ffffff;
+  --panel:#ffffff;
+  --panel-2:#FBFBFA;
+  --line:#EDEDEA;
+  --line-2:#F5F5F3;
+
+  --ink:#0B0B0A;
+  --ink-2:#63635E;
+  --ink-3:#A2A29B;
+
+  --crit:#D92D20;
+  --crit-tint:#FEF3F2;
+  --warn:#B54708;
+  --warn-tint:#FFFAEB;
+  --ok:#2C7A00;
+  --ok-tint:#EEFEE6;
+
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --r:12px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px;line-height:1.6;font-weight:400;
+  -webkit-font-smoothing:antialiased;letter-spacing:-.006em;
+}
+.wrap{max-width:1160px;margin:0 auto;padding:56px 26px 110px}
+
+/* ---------- type ---------- */
+h1{font-size:clamp(30px,4.6vw,46px);line-height:1.04;letter-spacing:-.035em;margin:0 0 14px;font-weight:800}
+h2{font-size:21px;letter-spacing:-.022em;margin:0;font-weight:700;line-height:1.25}
+h3{font-size:15px;margin:0 0 10px;font-weight:650;letter-spacing:-.012em}
+p{margin:0 0 14px;color:var(--ink-2);max-width:76ch}
+.lede{font-size:16.5px;color:var(--ink-2);max-width:64ch;margin-bottom:22px;line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:44px}
+.chip{font-size:12px;color:var(--ink-2);background:var(--panel-2);border:1px solid var(--line);
+  padding:4px 11px;border-radius:100px;font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.chip.on{background:var(--kick);border-color:var(--kick);color:#000;font-weight:650}
+
+/* ---------- icons ---------- */
+.ic{width:1em;height:1em;flex:none;stroke:currentColor;fill:none;
+  stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.13em}
+
+/* ---------- section head ---------- */
+section{margin-top:64px}
+.shead{margin-bottom:26px}
+.shead .top{display:flex;align-items:center;gap:12px;margin-bottom:9px;flex-wrap:wrap}
+.snum{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.12em;font-weight:600;flex:none}
+.sico{width:34px;height:34px;border-radius:9px;background:var(--kick);color:#000;
+  display:flex;align-items:center;justify-content:center;flex:none}
+.sico .ic{width:18px;height:18px;stroke-width:1.9}
+.shead p{margin:0;font-size:14px;max-width:78ch}
+.rule{height:1px;background:var(--line);margin:16px 0 0}
+
+/* ---------- KPIs ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));gap:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:17px 18px 16px}
+.kpi .kh{display:flex;align-items:center;gap:7px;color:var(--ink-3);margin-bottom:12px}
+.kpi .kh .ic{width:15px;height:15px}
+.kpi .kh span{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:600}
+.kpi .n{font-size:31px;font-weight:750;letter-spacing:-.038em;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .n .u{font-size:17px;font-weight:650}
+.kpi .d{font-size:12.5px;color:var(--ink-2);margin-top:7px;line-height:1.45}
+.kpi.flag{border-color:#F6D9D6;background:linear-gradient(180deg,var(--crit-tint) 0%,#fff 62%)}
+.kpi.flag .n{color:var(--crit)}
+.kpi.good{border-color:var(--kick-tint-2);background:linear-gradient(180deg,var(--kick-tint) 0%,#fff 62%)}
+.kpi.good .n{color:var(--kick-ink)}
+
+/* ---------- callout ---------- */
+.call{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px 22px;margin:24px 0;position:relative;overflow:hidden}
+.call::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--kick)}
+.call h3{display:flex;align-items:center;gap:8px;font-size:12px;text-transform:uppercase;
+  letter-spacing:.07em;margin-bottom:10px;color:var(--ink)}
+.call h3 .ic{width:15px;height:15px;color:var(--kick-ink)}
+.call p{margin:0;color:var(--ink-2);font-size:14.5px}
+.call p+p{margin-top:11px}
+.call strong{color:var(--ink);font-weight:650}
+.call ol{margin:10px 0 0;padding-left:19px;color:var(--ink-2);font-size:14px}
+.call li{margin-bottom:6px}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px}
+thead th{text-align:left;padding:12px 14px;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-3);font-weight:600;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--panel)}
+td{padding:11px 14px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--panel-2)}
+.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:12.5px}
+.mono{font-family:var(--mono);font-size:12.5px}
+.nm{font-weight:600;letter-spacing:-.01em}
+.dim{color:var(--ink-3)}
+
+/* ---------- sortable / filterable headers ---------- */
+th.sortable{padding:9px 14px 10px;vertical-align:top}
+.thw{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+th.num .thb{justify-content:flex-end}
+.thb{display:flex;align-items:center;gap:5px;width:100%;background:none;border:0;padding:0;
+  font:inherit;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;
+  color:var(--ink-3);cursor:pointer;white-space:nowrap;font-family:inherit;
+  border-radius:5px;transition:color .12s}
+.thb:hover{color:var(--ink)}
+.thb .ic{width:12px;height:12px;stroke-width:2.2;opacity:.4;transition:opacity .12s,color .12s}
+.thb:hover .ic{opacity:.8}
+.thb.on{color:var(--ink)}
+.thb.on .ic{opacity:1;color:var(--kick-ink)}
+.thf{width:100%;min-width:74px;font-family:var(--mono);font-size:11px;padding:4px 7px;
+  border:1px solid var(--line);border-radius:6px;background:var(--panel-2);color:var(--ink);
+  outline:none;transition:border-color .12s,background .12s}
+.thf::placeholder{color:var(--ink-3);text-transform:none;letter-spacing:0}
+.thf:focus{border-color:var(--kick);background:var(--panel)}
+.thf.set{border-color:var(--kick);background:var(--kick-tint)}
+select.thf{cursor:pointer;font-family:inherit;font-size:11px}
+.tbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;
+  font-size:12.5px;color:var(--ink-3)}
+.tbar .cnt{display:inline-flex;align-items:center;gap:6px}
+.tbar .cnt .ic{width:13px;height:13px}
+.clr{border:1px solid var(--line);background:var(--panel);color:var(--ink-2);font:inherit;
+  font-size:11.5px;font-weight:550;padding:4px 11px;border-radius:100px;cursor:pointer}
+.clr:hover{border-color:var(--kick);color:var(--ink)}
+.empty{padding:26px 14px;text-align:center;color:var(--ink-3);font-size:13.5px}
+
+/* bars */
+.bar{position:relative;height:5px;background:var(--line);border-radius:100px;min-width:54px;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--kick);border-radius:100px;display:block}
+.bar.mut i{background:var(--ink-3)}
+
+/* ---------- pills ---------- */
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
+  padding:3.5px 9px;border-radius:100px;white-space:nowrap;border:1px solid transparent}
+.pill .ic{width:12px;height:12px;stroke-width:2.1}
+.p-ok{background:var(--ok-tint);color:var(--ok);border-color:var(--kick-tint-2)}
+.p-warn{background:var(--warn-tint);color:var(--warn);border-color:#FDECC8}
+.p-crit{background:var(--crit-tint);color:var(--crit);border-color:#FBD9D4}
+.p-kick{background:var(--kick);color:#000;border-color:var(--kick);font-weight:700}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--panel);color:var(--ink-2);font-size:12.5px;
+  padding:6.5px 14px;border-radius:100px;cursor:pointer;font-family:inherit;font-weight:550;
+  transition:background .12s,border-color .12s,color .12s}
+.tab:hover{border-color:var(--ink-3);color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--kick);color:#000;border-color:var(--kick);font-weight:700}
+
+/* ---------- heatmap ---------- */
+.hm{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:18px}
+.hmg{display:grid;grid-template-columns:96px repeat(24,minmax(27px,1fr));gap:3px;min-width:830px}
+.hlab{font-family:var(--mono);font-size:10px;color:var(--ink-3);text-align:center;padding-bottom:5px}
+.rlab{font-size:12.5px;font-weight:600;display:flex;align-items:center;padding-right:10px;
+  white-space:nowrap;letter-spacing:-.01em}
+.cell{aspect-ratio:1;border-radius:5px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:9.5px;color:var(--ink-2);position:relative;font-weight:500}
+.c0{background:var(--panel-2)}
+.c1{background:#F4FEEE}.c2{background:#E4FDD4}.c3{background:#C6FBA9}
+.c4{background:#95F86A;color:#000}.c5{background:var(--kick);color:#000;font-weight:650}
+.c0.dark{background:var(--crit-tint)}
+.c0.dark::after{content:"";width:5px;height:1.5px;border-radius:2px;background:var(--crit);opacity:.75}
+.legend{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:16px;font-size:12px;color:var(--ink-2)}
+.legend b{font-weight:550}
+.modenote{display:flex;gap:11px;align-items:flex-start;background:var(--panel-2);
+  border:1px solid var(--line);border-left:3px solid var(--kick);border-radius:0 var(--r) var(--r) 0;
+  padding:13px 16px;margin-bottom:16px;font-size:13px;color:var(--ink-2);line-height:1.5}
+.modenote .ic{width:16px;height:16px;flex:none;margin-top:2px;color:var(--kick-ink)}
+.modenote b{color:var(--ink);font-weight:650}
+.modenote .use{display:block;margin-top:5px;font-size:12.5px;color:var(--ink-3)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+
+/* ---------- cards / notes ---------- */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:17px 18px}
+.card h3{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:11px}
+.card ul{margin:0;padding-left:0;list-style:none;font-size:13px;color:var(--ink-2)}
+.card li{margin-bottom:6px;display:flex;gap:8px;align-items:flex-start;line-height:1.45}
+.card li .ic{width:13px;height:13px;margin-top:4px;color:var(--ink-3)}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:14px;margin-top:16px}
+.note{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);
+  padding:14px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.note .nk{display:flex;align-items:center;gap:6px;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--ink);font-weight:700;margin-bottom:6px}
+.note .nk .ic{width:13px;height:13px;color:var(--kick-ink)}
+.fine{font-size:12.5px;color:var(--ink-3);margin-top:12px;line-height:1.55}
+
+.foot{margin-top:76px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink-3);line-height:1.65}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 3 3.9 5.9 3.9 9s-1.3 6-3.9 9c-2.6-3-3.9-5.9-3.9-9S9.4 6 12 3z"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20.2a6.4 6.4 0 0 1 12.4 0"/><path d="M16.4 5.1a3.3 3.3 0 0 1 0 5.8"/><path d="M18.6 20.2a6.3 6.3 0 0 0-1.8-4.2"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.2V12l3.4 2"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4.2 20.6 19.4H3.4z"/><path d="M12 9.8v3.9"/><path d="M12 16.6h.01"/></symbol>
+<symbol id="i-xc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.2l5.6 5.6M14.8 9.2l-5.6 5.6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.1 12.4l2.9 2.9 5.1-6.2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.6"/><path d="M15.4 15.4 20.8 20.8"/></symbol>
+<symbol id="i-bars" viewBox="0 0 24 24"><path d="M3 20.5h18"/><path d="M6.5 20.5V12"/><path d="M12 20.5V4.5"/><path d="M17.5 20.5V9"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.4 14.7A8.6 8.6 0 1 1 9.3 3.6a7.1 7.1 0 0 0 11.1 11.1z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.2 19 6v5.4c0 4.5-2.9 8.1-7 9.6-4.1-1.5-7-5.1-7-9.6V6z"/><path d="M9 12.2l2.1 2.1 4-4.4"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M12.4 3c2.9 3.9 4.8 5.6 4.8 9.1a5.2 5.2 0 0 1-10.4 0c0-2 1-3.1 1.9-4 .1 1.5.9 2.4 2 2.4 1.5 0 1.6-3.9.7-7.5z"/></symbol>
+<symbol id="i-userx" viewBox="0 0 24 24"><circle cx="10" cy="8" r="3.4"/><path d="M3.4 20.4a6.7 6.7 0 0 1 12-4"/><path d="M16.6 16.6l4.4 4.4M21 16.6l-4.4 4.4"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M8.5 6.5H21M8.5 12H21M8.5 17.5H21"/><path d="M3.5 6.5h.01M3.5 12h.01M3.5 17.5h.01"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10.2 13.8a3.6 3.6 0 0 0 5.1 0l3.1-3.1a3.6 3.6 0 0 0-5.1-5.1l-1.1 1.1"/><path d="M13.8 10.2a3.6 3.6 0 0 0-5.1 0l-3.1 3.1a3.6 3.6 0 0 0 5.1 5.1l1.1-1.1"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5.2" width="17" height="15.3" rx="2.4"/><path d="M3.5 10h17M8.5 3.5v3.4M15.5 3.5v3.4"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 16.5l5.5-5.5 4 4L21 6.5"/><path d="M15.5 6.5H21v5.5"/></symbol>
+<symbol id="i-sort" viewBox="0 0 24 24"><path d="M8 10 12 6l4 4"/><path d="M8 14l4 4 4-4"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="M6.5 15 12 9.5l5.5 5.5"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M6.5 9.5 12 15l5.5-5.5"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3.5 5.5h17l-6.6 7.8v5.4l-3.8 2v-7.4z"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+
+<h1>SIDE KICK Program Audit</h1>
+<p class="lede">Where moderation coverage actually sits, who is carrying it, and which seats are being paid for but not filled.</p>
+<div class="meta">
+  <span class="chip"><svg class="ic"><use href="#i-bars"/></svg>3,197 reactions</span>
+  <span class="chip"><svg class="ic"><use href="#i-users"/></svg>25 reacters · 10 role holders</span>
+  <span class="chip"><svg class="ic"><use href="#i-globe"/></svg>9 language channels</span>
+  <span class="chip"><svg class="ic"><use href="#i-cal"/></svg>19 Jun – 24 Aug 2026 · 67 days</span>
+  <span class="chip on"><svg class="ic"><use href="#i-clock"/></svg>All times AEST</span>
+</div>
+
+<div class="kpis">
+  <div class="kpi">
+    <div class="kh"><svg class="ic"><use href="#i-globe"/></svg><span>Languages covered</span></div>
+    <div class="n">9</div><div class="d">JA · ES · TR · PL · FR · AR · RU · DE · IN</div></div>
+  <div class="kpi">
+    <div class="kh"><svg class="ic"><use href="#i-users"/></svg><span>Members on roster</span></div>
+    <div class="n">25</div><div class="d">only 8 carry ≥3% of volume</div></div>
+  <div class="kpi flag">
+    <div class="kh"><svg class="ic"><use href="#i-clock"/></svg><span>Typical wait</span></div>
+    <div class="n">6.6<span class="u">h</span></div><div class="d">average 12.1h · slowest 10% ≥30.8h · worst 201h</div></div>
+  <div class="kpi flag">
+    <div class="kh"><svg class="ic"><use href="#i-alert"/></svg><span>Single-person channels</span></div>
+    <div class="n">6<span class="u">/9</span></div><div class="d">one active contributor holding the channel up</div></div>
+  <div class="kpi flag">
+    <div class="kh"><svg class="ic"><use href="#i-userx"/></svg><span>Dormant or dead weight</span></div>
+    <div class="n">12</div><div class="d">48% of the roster, 4% of the output</div></div>
+</div>
+
+<div class="call">
+  <h3><svg class="ic"><use href="#i-flame"/></svg>The headline</h3>
+  <p>The program is not short of <em>people</em>. It is short of people who show up. <strong>8 of 25 members produce 94.7% of all output</strong>, and 6 of 9 channels depend on a single active human, 5 of them with one person holding 97%+ of the volume. Meanwhile 12 members have either gone dark for 30+ days or logged fewer than 5 reactions in over two months.</p>
+  <p>Fixing German, Russian, Polish and Japanese matters more than adding headcount anywhere else.</p>
+</div>
+
+<!-- 01 -->
+<section>
+  <div class="shead">
+    <div class="top">
+      <span class="sico"><svg class="ic"><use href="#i-bars"/></svg></span>
+      <span class="snum">01</span>
+      <h2>Channel scorecard</h2>
+    </div>
+    <p>Ordered worst-first: the channels at the top combine slow responses, a single point of failure, and the most uncovered hours. "Roster" is everyone who reacted in that channel; "Active" counts only those holding ≥5% of its volume or ≥5 reactions.</p>
+    <div class="rule"></div>
+  </div>
+  <div class="tw"><table>
+    <thead><tr id="th-chan"></tr></thead>
+    <tbody id="tb-chan"></tbody>
+  </table></div>
+  <div class="tbar">
+    <span class="cnt"><svg class="ic"><use href="#i-filter"/></svg><span id="chan-count">Showing all 9 channels</span></span>
+    <button class="clr" id="chan-clear" hidden>Clear sort &amp; filters</button>
+    <span class="dim">Click any column title to sort · type in a box to filter</span>
+  </div>
+
+  <div class="notes">
+    <div class="note"><span class="nk"><svg class="ic"><use href="#i-clock"/></svg>Typical wait</span>
+      The median. Half of all reports in that channel were handled faster than this, half slower.</div>
+    <div class="note"><span class="nk"><svg class="ic"><use href="#i-trend"/></svg>Average wait</span>
+      The mean. Pulled upward by a handful of very slow cases, so it sits above the typical wait everywhere.</div>
+    <div class="note"><span class="nk"><svg class="ic"><use href="#i-alert"/></svg>Slowest 10%</span>
+      The 90th percentile. One report in ten waited at least this long. It is your worst realistic case, not your typical one.</div>
+  </div>
+
+  <div class="call">
+    <h3><svg class="ic"><use href="#i-alert"/></svg>Why the slowest 10% is the column to watch</h3>
+    <p>German looks survivable at a 20.0h typical wait. But its slowest 10% is <strong>77.1h</strong>, meaning one German report in ten sat unactioned for more than three days. Russian is 12.5h typical against 47.1h, Japanese 12.0h against 37.4h. For hate, doxxing and child-endangerment reports the damage doesn't scale evenly with delay, it compounds, so the tail is where the real exposure sits. Turkish (1.0h → 12.2h) and Spanish (1.4h → 7.6h) are the only two channels where the tail stays contained.</p>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="shead">
+    <div class="top">
+      <span class="sico"><svg class="ic"><use href="#i-clock"/></svg></span>
+      <span class="snum">02</span>
+      <h2>Hour-of-day coverage</h2>
+    </div>
+    <p>Reactions per hour across the full 67 days. A red cell means <strong>zero</strong> reactions in that hour in over two months, so that hour is unmoderated for that language.</p>
+    <div class="rule"></div>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab" aria-selected="true" data-m="abs">Raw volume</button>
+    <button class="tab" aria-selected="false" data-m="rel">Relative to channel peak</button>
+  </div>
+  <div class="modenote" id="modenote"></div>
+  <div class="hm">
+    <div class="hmg" id="hmg"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:#F4FEEE;border:1px solid var(--line)"></span><b>light</b></span>
+      <span><span class="sw" style="background:#C6FBA9"></span><b>moderate</b></span>
+      <span><span class="sw" style="background:var(--kick)"></span><b>heavy</b></span>
+      <span><span class="sw" style="background:var(--crit-tint);border:1px solid #FBD9D4"></span><b>dark hour, no coverage at all</b></span>
+      <span class="dim">Dark hours are identical in both modes, because zero is zero on any scale. Hover any cell for its exact count.</span>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:18px" id="gapcards"></div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="shead">
+    <div class="top">
+      <span class="sico"><svg class="ic"><use href="#i-link"/></svg></span>
+      <span class="snum">03</span>
+      <h2>The <span class="mono" style="font-size:16px">SIDE KICK</span> role points at the wrong people</h2>
+    </div>
+    <p>The Discord role has 10 members. 25 people actually reacted during the window. Those two sets barely overlap.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi flag">
+      <div class="kh"><svg class="ic"><use href="#i-userx"/></svg><span>Ghost seats in the role</span></div>
+      <div class="n">3</div><div class="d">kali4nya, piolho, simplycoco. Zero reactions, ever</div></div>
+    <div class="kpi flag">
+      <div class="kh"><svg class="ic"><use href="#i-alert"/></svg><span>Working without the role</span></div>
+      <div class="n">18</div><div class="d">including 4 sole channel owners</div></div>
+    <div class="kpi">
+      <div class="kh"><svg class="ic"><use href="#i-bars"/></svg><span>Volume the role covers</span></div>
+      <div class="n">72<span class="u">%</span></div><div class="d">2,315 of 3,197 reactions</div></div>
+    <div class="kpi">
+      <div class="kh"><svg class="ic"><use href="#i-users"/></svg><span>Role holders who reacted</span></div>
+      <div class="n">7<span class="u">/10</span></div><div class="d">4 meaningfully, 3 token only</div></div>
+  </div>
+
+  <div class="call">
+    <h3><svg class="ic"><use href="#i-alert"/></svg>What this means</h3>
+    <p>Four people who each single-handedly carry an entire language do not hold the role: <span class="mono">annanow.</span> (345 reactions, 100% of Polish), <span class="mono">dusanr4d</span> (159, French lead), <span class="mono">nikitaalks</span> (123, 100% of Russian) and <span class="mono">sanela81</span> (97, 100% of German). Meanwhile three role holders have never reacted once.</p>
+    <p>So either the role isn't how sidekick access is actually granted, or assignment has drifted badly out of sync with who does the work. Resolve that before using role membership as the basis for access, perks, or payment. Right now it would reward three people who have done nothing and miss four who are load-bearing.</p>
+  </div>
+
+  <p class="fine">Per-person figures for all 28 names, role holders and non-holders alike, are in the next section. Filter it to "SIDE KICK role only" to see the role roster on its own.</p>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="shead">
+    <div class="top">
+      <span class="sico"><svg class="ic"><use href="#i-list"/></svg></span>
+      <span class="snum">04</span>
+      <h2>Member roster &amp; decisions: all 28 names</h2>
+    </div>
+    <p>Every reacter in the export plus all 10 SIDE KICK role holders, merged and deduplicated. Days active counts distinct days with at least one reaction out of 67 possible; idle is days since last reaction as of 24 Aug.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="kpis" style="margin-bottom:22px">
+    <div class="kpi good">
+      <div class="kh"><svg class="ic"><use href="#i-check"/></svg><span>Maintain</span></div>
+      <div class="n">8</div><div class="d">94.7% of all output</div></div>
+    <div class="kpi">
+      <div class="kh"><svg class="ic"><use href="#i-search"/></svg><span>Investigate</span></div>
+      <div class="n" style="color:var(--warn)">10</div><div class="d">4.4% of all output</div></div>
+    <div class="kpi flag">
+      <div class="kh"><svg class="ic"><use href="#i-xc"/></svg><span>Terminate</span></div>
+      <div class="n">10</div><div class="d">1.0% of all output, 31 reactions</div></div>
+    <div class="kpi">
+      <div class="kh"><svg class="ic"><use href="#i-users"/></svg><span>Total names</span></div>
+      <div class="n">28</div><div class="d">25 reacters + 3 ghost seats</div></div>
+  </div>
+
+  <div class="tabs" id="dtabs">
+    <button class="tab" aria-selected="true" data-d="all">All 28</button>
+    <button class="tab" aria-selected="false" data-d="maintain">Maintain</button>
+    <button class="tab" aria-selected="false" data-d="investigate">Investigate</button>
+    <button class="tab" aria-selected="false" data-d="terminate">Terminate</button>
+    <button class="tab" aria-selected="false" data-d="role">SIDE KICK role only</button>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr>
+      <th>Name</th><th class="num">Days active</th><th class="num">Contributions</th>
+      <th style="width:86px">Share</th><th class="num">Per day</th>
+      <th class="num">Typical wait</th><th class="num">Average wait</th><th class="num">Idle</th>
+      <th>Decision</th><th>Reasoning</th>
+    </tr></thead>
+    <tbody id="tb-dec"></tbody>
+  </table></div>
+  <p class="fine">Typical wait is that member's median response time in hours; average wait is their mean, which a few very slow cases can inflate. "Per day" is contributions per active day, which separates someone genuinely steady from someone who did everything in one burst.</p>
+
+  <div class="call">
+    <h3><svg class="ic"><use href="#i-shield"/></svg>Decision rules applied</h3>
+    <ol>
+      <li><strong>Terminate:</strong> zero contributions ever, or dormant 30+ days with fewer than 50 contributions.</li>
+      <li><strong>Investigate:</strong> meaningful history but gone dark 30+ days, quiet 14–29 days, or currently active with fewer than 20 contributions.</li>
+      <li><strong>Maintain:</strong> active within 14 days and 20+ contributions.</li>
+    </ol>
+    <p style="margin-top:11px">Terminating all 10 costs you 1.0% of output and frees 10 seats. Before acting, confirm none of them were onboarded in the last few weeks. A new joiner and a ghost look identical in a 67-day window.</p>
+  </div>
+</section>
+
+<div class="foot">
+  Source: sidekicks_export_2026-08-24.csv, covering 3,197 reaction events, 19 Jun – 24 Aug 2026, cross-referenced against the SIDE KICK Discord role roster (10 members).
+  Response times converted from minutes to hours. Timestamps normalised to AEST (UTC+10). One channel per language.
+</div>
+</div>
+
+<script>
+const DATA={"score":[{"lang":"German","vol":97,"members":1,"active":1,"avg_h":37.4,"med_h":20.03,"p90_h":77.11,"top":"sanela81","top_share":100.0,"dark":11,"priority":85.6,"hours":[0,0,0,0,0,0,0,46,14,3,4,6,0,5,2,0,4,4,0,4,0,1,3,1]},{"lang":"Russian","vol":126,"members":2,"active":1,"avg_h":16.56,"med_h":12.51,"p90_h":47.07,"top":"nikitaalks","top_share":97.6,"dark":13,"priority":72.5,"hours":[16,9,6,0,0,0,0,28,8,1,3,1,0,0,0,8,23,0,0,0,0,0,0,23]},{"lang":"Polish","vol":345,"members":1,"active":1,"avg_h":16.6,"med_h":12.35,"p90_h":36.49,"top":"annanow.","top_share":100.0,"dark":10,"priority":67.8,"hours":[35,0,2,4,10,4,0,94,65,4,7,0,0,6,14,28,17,0,0,0,0,0,0,55]},{"lang":"Japanese","vol":1204,"members":2,"active":1,"avg_h":15.91,"med_h":12.03,"p90_h":37.39,"top":"aielt","top_share":99.9,"dark":6,"priority":62.2,"hours":[77,62,21,33,0,0,0,0,1,91,0,0,44,20,86,35,62,43,94,164,55,51,61,204]},{"lang":"Indian","vol":16,"members":8,"active":1,"avg_h":7.18,"med_h":0.06,"p90_h":0.73,"top":"teodorasm","top_share":31.2,"dark":18,"priority":55.1,"hours":[0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,0,1,0,8,3,0,0,0,1]},{"lang":"Spanish","vol":553,"members":4,"active":1,"avg_h":2.95,"med_h":1.43,"p90_h":7.62,"top":"bizcuitkick","top_share":98.7,"dark":2,"priority":36.0,"hours":[3,2,11,12,19,12,38,42,13,47,48,22,47,25,72,34,29,40,11,13,5,8,0,0]},{"lang":"French","vol":213,"members":6,"active":3,"avg_h":13.77,"med_h":8.62,"p90_h":35.32,"top":"dusanr4d","top_share":74.6,"dark":4,"priority":27.9,"hours":[20,2,3,3,1,3,3,42,23,0,0,0,0,1,1,38,18,17,2,2,2,1,2,29]},{"lang":"Turkish","vol":515,"members":5,"active":2,"avg_h":3.7,"med_h":1.01,"p90_h":12.24,"top":"heygamze","top_share":87.0,"dark":5,"priority":25.1,"hours":[19,17,11,48,69,29,25,54,33,8,2,0,0,0,0,0,3,3,2,2,28,94,38,30]},{"lang":"Arabic","vol":128,"members":4,"active":3,"avg_h":11.52,"med_h":5.34,"p90_h":29.94,"top":"psychoskulls","top_share":82.0,"dark":5,"priority":20.1,"hours":[5,11,18,7,3,6,5,1,6,22,14,7,0,8,0,0,0,2,0,2,3,2,2,4]}]};
+
+const GAPS={German:["00:00–07:00 (7h straight)","12:00, 15:00, 18:00, 20:00"],
+Russian:["17:00–23:00 (6h straight)","03:00–07:00 (4h)","12:00–15:00 (3h)"],
+Indian:["00:00–06:00 (6h)","07:00–11:00 (4h)","12:00–16:00 (4h)","20:00–23:00 (3h)"],
+Polish:["17:00–23:00 (6h straight)","11:00–13:00","01:00, 06:00"],
+Turkish:["11:00–16:00 (5h straight)"],
+Japanese:["04:00–08:00 (4h straight)","10:00–12:00"],
+Arabic:["14:00–17:00 (3h)","12:00–13:00","18:00–19:00"],
+French:["09:00–13:00 (4h straight)","+9 hours with ≤2 reactions in 67 days"],
+Spanish:["22:00–00:00 (2h), best covered channel"]};
+
+const hrs=h=>h.toFixed(2)+"h";
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const ico=n=>`<svg class="ic"><use href="#i-${n}"/></svg>`;
+
+/* ---- 01 channel scorecard : sortable + filterable ---- */
+function verdict(c){
+  if(c.priority>=60) return ['p-crit','xc','Recruit now'];
+  if(c.priority>=35) return ['p-warn','alert','Add backup'];
+  return ['p-ok','check','Healthy'];
+}
+const ROWS=DATA.score.map((c,ord)=>{
+  const [vcls,vico,vlabel]=verdict(c);
+  return Object.assign({},c,{ord,vcls,vico,vlabel});
+});
+const COLS=[
+  {k:'lang',    t:'Channel',      ty:'s', f:'text',   ph:'name…'},
+  {k:'vol',     t:'Volume',       ty:'n'},
+  {k:'members', t:'Roster',       ty:'n'},
+  {k:'active',  t:'Active',       ty:'n'},
+  {k:'med_h',   t:'Typical wait', ty:'n'},
+  {k:'avg_h',   t:'Average wait', ty:'n'},
+  {k:'p90_h',   t:'Slowest 10%',  ty:'n'},
+  {k:'top',     t:'Carried by',   ty:'s', f:'text',   ph:'member…'},
+  {k:'dark',    t:'Dark hrs',     ty:'n'},
+  {k:'vlabel',  t:'Verdict',      ty:'s', f:'select', opts:['Recruit now','Add backup','Healthy']}
+];
+const S={k:null,dir:0}, F={};
+
+document.getElementById('th-chan').innerHTML=COLS.map(c=>{
+  const filt = c.f==='text'
+    ? `<input class="thf" data-f="${c.k}" placeholder="${c.ph}" aria-label="Filter ${c.t}">`
+    : c.f==='select'
+      ? `<select class="thf" data-f="${c.k}" aria-label="Filter ${c.t}"><option value="">all</option>${
+          c.opts.map(o=>`<option>${o}</option>`).join('')}</select>`
+      : '';
+  return `<th class="sortable${c.ty==='n'?' num':''}">
+    <div class="thw">
+      <button class="thb" data-s="${c.k}" type="button">${c.t}<svg class="ic"><use href="#i-sort"/></svg></button>
+      ${filt}
+    </div></th>`;
+}).join('');
+
+function applyChan(){
+  let rows=ROWS.filter(r=>COLS.every(c=>{
+    const q=(F[c.k]||'').trim(); if(!q) return true;
+    return c.f==='select' ? r[c.k]===q : String(r[c.k]).toLowerCase().includes(q.toLowerCase());
+  }));
+  if(S.k){
+    const col=COLS.find(c=>c.k===S.k);
+    rows=rows.slice().sort((a,b)=> col.ty==='n'
+      ? (a[S.k]-b[S.k])*S.dir
+      : String(a[S.k]).localeCompare(String(b[S.k]))*S.dir);
+  } else rows=rows.slice().sort((a,b)=>a.ord-b.ord);
+
+  document.getElementById('tb-chan').innerHTML = rows.length ? rows.map(c=>`<tr>
+   <td class="nm">${esc(c.lang)}</td>
+   <td class="num">${c.vol.toLocaleString()}</td>
+   <td class="num">${c.members}</td>
+   <td class="num" style="color:${c.active===1?'var(--crit)':'inherit'};font-weight:${c.active===1?'700':'400'}">${c.active}</td>
+   <td class="num" style="color:${c.med_h>8?'var(--crit)':c.med_h>4?'var(--warn)':'inherit'}">${hrs(c.med_h)}</td>
+   <td class="num">${hrs(c.avg_h)}</td>
+   <td class="num" style="color:${c.p90_h>35?'var(--crit)':c.p90_h>15?'var(--warn)':'inherit'}">${hrs(c.p90_h)}</td>
+   <td class="mono">${esc(c.top)} <span class="dim">${c.top_share}%</span></td>
+   <td class="num" style="color:${c.dark>=8?'var(--crit)':'inherit'}">${c.dark}</td>
+   <td><span class="pill ${c.vcls}">${ico(c.vico)}${c.vlabel}</span></td></tr>`).join('')
+   : `<tr><td colspan="${COLS.length}" class="empty">No channels match these filters.</td></tr>`;
+
+  // header state
+  document.querySelectorAll('#th-chan .thb').forEach(b=>{
+    const on=b.dataset.s===S.k;
+    b.classList.toggle('on',on);
+    b.querySelector('use').setAttribute('href', on ? (S.dir===1?'#i-up':'#i-down') : '#i-sort');
+  });
+  document.querySelectorAll('#th-chan .thf').forEach(el=>
+    el.classList.toggle('set', !!(F[el.dataset.f]||'').trim()));
+
+  const active=Object.values(F).some(v=>(v||'').trim())||S.k;
+  document.getElementById('chan-count').textContent =
+    rows.length===ROWS.length ? `Showing all ${ROWS.length} channels`
+                              : `Showing ${rows.length} of ${ROWS.length} channels`;
+  document.getElementById('chan-clear').hidden=!active;
+}
+
+document.getElementById('th-chan').addEventListener('click',e=>{
+  const b=e.target.closest('.thb'); if(!b)return;
+  const k=b.dataset.s;
+  if(S.k!==k){S.k=k;S.dir=COLS.find(c=>c.k===k).ty==='n'?-1:1;}   // numbers start high→low
+  else if(S.dir===(COLS.find(c=>c.k===k).ty==='n'?-1:1)) S.dir=-S.dir;
+  else {S.k=null;S.dir=0;}                                        // third click restores default order
+  applyChan();
+});
+document.getElementById('th-chan').addEventListener('input',e=>{
+  const el=e.target.closest('.thf'); if(!el)return;
+  F[el.dataset.f]=el.value; applyChan();
+});
+document.getElementById('th-chan').addEventListener('change',e=>{
+  const el=e.target.closest('select.thf'); if(!el)return;
+  F[el.dataset.f]=el.value; applyChan();
+});
+document.getElementById('chan-clear').addEventListener('click',()=>{
+  S.k=null;S.dir=0;
+  Object.keys(F).forEach(k=>F[k]='');
+  document.querySelectorAll('#th-chan .thf').forEach(el=>el.value='');
+  applyChan();
+});
+applyChan();
+
+/* ---- 02 heatmap ---- */
+const LANGS=DATA.score.map(c=>c.lang);
+const GRID={};DATA.score.forEach(c=>GRID[c.lang]=c.hours);
+const gmax=Math.max(...LANGS.flatMap(L=>GRID[L]));
+function drawHM(mode){
+  let h='<div></div>'+Array.from({length:24},(_,i)=>`<div class="hlab">${String(i).padStart(2,'0')}</div>`).join('');
+  LANGS.forEach(L=>{
+    const row=GRID[L], peak=Math.max(...row)||1;
+    h+=`<div class="rlab">${L}</div>`;
+    row.forEach((v,hh)=>{
+      let k=0;
+      if(v>0){
+        const r = mode==='rel' ? v/peak : v/gmax;
+        k = r>0.5?5:r>0.25?4:r>0.1?3:r>0.03?2:1;
+      }
+      h+=`<div class="cell c${k}${v===0?' dark':''}" title="${L} · ${String(hh).padStart(2,'0')}:00 · ${v} reaction${v===1?'':'s'}">${v>0?v:''}</div>`;
+    });
+  });
+  document.getElementById('hmg').innerHTML=h;
+}
+const MODENOTE={
+  abs:`${ico('bars')}<div><b>Raw volume</b> shades every cell against one shared scale, topping out at the
+    busiest cell anywhere on the grid (Japanese, 23:00, ${gmax} reactions). Colour therefore means
+    <b>absolute workload</b>: Japanese glows, and a channel whose busiest hour ever is 8 reactions stays almost blank.
+    <span class="use">Use this to see where the work actually is. It's why Japanese at 37.6% of all output is obvious at a glance.</span></div>`,
+  rel:`${ico('trend')}<div><b>Relative to channel peak</b> rescales each row against its own busiest hour, so every
+    channel's peak reaches full green regardless of size. Colour now means <b>when that channel works</b>, not how much.
+    Indian's 8-reaction hour at 18:00 goes full green because it is that channel's maximum.
+    <span class="use">Use this for scheduling. It makes Turkish's 03:00–08:00 block and Polish's 07:00–08:00 spike legible even though neither approaches Japanese's numbers.</span></div>`
+};
+function setMode(m){
+  drawHM(m);
+  document.getElementById('modenote').innerHTML=MODENOTE[m];
+}
+setMode('abs');
+document.getElementById('tabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab'); if(!b)return;
+  [...e.currentTarget.children].forEach(x=>x.setAttribute('aria-selected',x===b));
+  setMode(b.dataset.m);
+});
+document.getElementById('gapcards').innerHTML=DATA.score
+  .filter(c=>c.dark>=4).slice().sort((a,b)=>b.dark-a.dark).map(c=>`<div class="card">
+    <h3><span>${c.lang}</span><span class="pill ${c.dark>=8?'p-crit':'p-warn'}">${ico('moon')}${c.dark} dark hrs</span></h3>
+    <ul>${(GAPS[c.lang]||[]).map(x=>`<li>${ico('clock')}<span>${x}</span></li>`).join('')}</ul></div>`).join('');
+
+/* ---- 04 roster + decisions ---- */
+const DEC=[{"n":"aielt","d":46,"v":1203,"pct":37.63,"pd":26.2,"med":12.04,"avg":15.92,"i":1,"ch":{"Japanese":1203},"r":true,"dec":"maintain","w":"Consistent, carrying real load"},{"n":"bizcuitkick","d":60,"v":546,"pct":17.08,"pd":9.1,"med":1.45,"avg":2.96,"i":0,"ch":{"Spanish":546},"r":true,"dec":"maintain","w":"Consistent, carrying real load"},{"n":"heygamze","d":56,"v":448,"pct":14.01,"pd":8.0,"med":1.31,"avg":4.1,"i":1,"ch":{"Turkish":448},"r":true,"dec":"maintain","w":"Consistent, carrying real load"},{"n":"annanow.","d":33,"v":345,"pct":10.79,"pd":10.5,"med":12.35,"avg":16.6,"i":5,"ch":{"Polish":345},"r":false,"dec":"maintain","w":"Consistent, carrying real load"},{"n":"dusanr4d","d":30,"v":159,"pct":4.97,"pd":5.3,"med":10.36,"avg":16.57,"i":3,"ch":{"French":159},"r":false,"dec":"maintain","w":"Consistent, carrying real load"},{"n":"nikitaalks","d":34,"v":123,"pct":3.85,"pd":3.6,"med":12.54,"avg":16.93,"i":0,"ch":{"Russian":123},"r":false,"dec":"maintain","w":"Consistent, carrying real load"},{"n":"psychoskulls","d":35,"v":105,"pct":3.28,"pd":3.0,"med":5.31,"avg":11.41,"i":0,"ch":{"Arabic":105},"r":true,"dec":"maintain","w":"Consistent, carrying real load"},{"n":"sanela81","d":21,"v":97,"pct":3.03,"pd":4.6,"med":20.03,"avg":37.4,"i":0,"ch":{"German":97},"r":false,"dec":"maintain","w":"Consistent, carrying real load"},{"n":"burakcrci","d":13,"v":85,"pct":2.66,"pd":6.5,"med":0.07,"avg":1.45,"i":50,"ch":{"Turkish":58,"French":27},"r":false,"dec":"investigate","w":"Real history (85) but gone dark 50d"},{"n":"souhaad1","d":7,"v":25,"pct":0.78,"pd":3.6,"med":4.98,"avg":8.04,"i":25,"ch":{"French":16,"Arabic":9},"r":false,"dec":"investigate","w":"Quiet 25d, check availability"},{"n":"jasmina.elsh","d":10,"v":19,"pct":0.59,"pd":1.9,"med":2.35,"avg":9.3,"i":45,"ch":{"Arabic":12,"Turkish":3,"Russian":3,"Indian":1},"r":false,"dec":"terminate","w":"Dormant 45d with only 19 contributions"},{"n":"ahmedlndy","d":5,"v":6,"pct":0.19,"pd":1.2,"med":7.96,"avg":9.62,"i":6,"ch":{"French":6},"r":true,"dec":"investigate","w":"Active but only 6 contributions"},{"n":"novicevic","d":3,"v":5,"pct":0.16,"pd":1.7,"med":0.02,"avg":0.01,"i":13,"ch":{"Indian":4,"French":1},"r":false,"dec":"investigate","w":"Active but only 5 contributions"},{"n":"oguzhande16","d":2,"v":5,"pct":0.16,"pd":2.5,"med":11.61,"avg":9.85,"i":62,"ch":{"Turkish":5},"r":false,"dec":"terminate","w":"Dormant 62d with only 5 contributions"},{"n":"renehpp","d":2,"v":5,"pct":0.16,"pd":2.5,"med":1.11,"avg":2.85,"i":2,"ch":{"Spanish":5},"r":true,"dec":"investigate","w":"Active but only 5 contributions"},{"n":"teodorasm","d":2,"v":5,"pct":0.16,"pd":2.5,"med":0.22,"avg":0.28,"i":4,"ch":{"Indian":5},"r":false,"dec":"investigate","w":"Active but only 5 contributions"},{"n":"somi.svtz","d":3,"v":4,"pct":0.13,"pd":1.3,"med":7.37,"avg":7.5,"i":2,"ch":{"French":4},"r":false,"dec":"investigate","w":"Active but only 4 contributions"},{"n":"derekaar0n","d":2,"v":2,"pct":0.06,"pd":1.0,"med":0.93,"avg":0.93,"i":53,"ch":{"Spanish":1,"Japanese":1},"r":false,"dec":"terminate","w":"Dormant 53d with only 2 contributions"},{"n":"milicevicmarko","d":2,"v":2,"pct":0.06,"pd":1.0,"med":0.04,"avg":0.04,"i":11,"ch":{"Indian":1,"Spanish":1},"r":false,"dec":"investigate","w":"Active but only 2 contributions"},{"n":"mr_sam03","d":2,"v":2,"pct":0.06,"pd":1.0,"med":0.12,"avg":0.12,"i":10,"ch":{"Indian":2},"r":true,"dec":"investigate","w":"Active but only 2 contributions"},{"n":"omranelgallal","d":1,"v":2,"pct":0.06,"pd":2.0,"med":3.79,"avg":3.79,"i":56,"ch":{"Arabic":2},"r":false,"dec":"terminate","w":"Dormant 56d with only 2 contributions"},{"n":"borovecki.","d":1,"v":1,"pct":0.03,"pd":1.0,"med":0.01,"avg":0.01,"i":44,"ch":{"Indian":1},"r":false,"dec":"terminate","w":"Dormant 44d with only 1 contribution"},{"n":"evan.kick","d":1,"v":1,"pct":0.03,"pd":1.0,"med":112.82,"avg":112.82,"i":48,"ch":{"Indian":1},"r":false,"dec":"terminate","w":"Dormant 48d with only 1 contribution"},{"n":"milenatri","d":1,"v":1,"pct":0.03,"pd":1.0,"med":0.19,"avg":0.19,"i":10,"ch":{"Indian":1},"r":false,"dec":"investigate","w":"Active but only 1 contribution"},{"n":"postefan","d":1,"v":1,"pct":0.03,"pd":1.0,"med":2.04,"avg":2.04,"i":58,"ch":{"Turkish":1},"r":false,"dec":"terminate","w":"Dormant 58d with only 1 contribution"},{"n":"kali4nya","d":0,"v":0,"pct":0,"pd":0,"med":null,"avg":null,"i":null,"ch":{},"r":true,"dec":"terminate","w":"Ghost seat, never reacted once"},{"n":"piolho","d":0,"v":0,"pct":0,"pd":0,"med":null,"avg":null,"i":null,"ch":{},"r":true,"dec":"terminate","w":"Ghost seat, never reacted once"},{"n":"simplycoco.","d":0,"v":0,"pct":0,"pd":0,"med":null,"avg":null,"i":null,"ch":{},"r":true,"dec":"terminate","w":"Ghost seat, never reacted once"}];
+const DPILL={maintain:['p-ok','check','Maintain'],investigate:['p-warn','search','Investigate'],terminate:['p-crit','xc','Terminate']};
+const dash='<span class="dim">n/a</span>';
+function drawDec(f){
+  let rows=DEC;
+  if(f==='role') rows=rows.filter(x=>x.r);
+  else if(f!=='all') rows=rows.filter(x=>x.dec===f);
+  document.getElementById('tb-dec').innerHTML=rows.map(x=>{
+    const [cls,i,txt]=DPILL[x.dec];
+    const chans=Object.entries(x.ch).map(([k,q])=>k+' '+q).join(', ')||'no channel activity';
+    return `<tr>
+      <td><span class="nm mono">${esc(x.n)}</span>${x.r?` <span class="pill p-kick">${ico('shield')}SIDE KICK</span>`:''}
+          <div class="mono dim" style="font-size:11px;margin-top:3px">${chans}</div></td>
+      <td class="num" style="color:${x.d===0?'var(--crit)':x.d<5?'var(--warn)':'inherit'}">${x.d}<span class="dim">/67</span></td>
+      <td class="num" style="color:${x.v===0?'var(--crit)':x.v<20?'var(--warn)':'inherit'};font-weight:${x.v>=90?'700':'400'}">${x.v.toLocaleString()}</td>
+      <td>${x.v?`<div class="bar${x.v<20?' mut':''}"><i style="width:${Math.max(2,x.pct/37.63*100)}%"></i></div>
+          <span class="mono dim" style="font-size:11px">${x.pct}%</span>`:dash}</td>
+      <td class="num">${x.v?x.pd:dash}</td>
+      <td class="num">${x.med===null?dash:hrs(x.med)}</td>
+      <td class="num" style="color:${x.avg>20?'var(--crit)':'inherit'}">${x.avg===null?dash:hrs(x.avg)}</td>
+      <td class="num" style="color:${x.i===null||x.i>=30?'var(--crit)':x.i>=7?'var(--warn)':'inherit'}">${x.i===null?'never':x.i+'d'}</td>
+      <td><span class="pill ${cls}">${ico(i)}${txt}</span></td>
+      <td style="font-size:13px;color:var(--ink-2)">${esc(x.w)}</td></tr>`;
+  }).join('');
+}
+drawDec('all');
+document.getElementById('dtabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab'); if(!b)return;
+  [...e.currentTarget.children].forEach(x=>x.setAttribute('aria-selected',x===b));
+  drawDec(b.dataset.d);
+});
+</script>
+</body>
+</html>
